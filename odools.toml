@@ -1,0 +1,5 @@
+[[config]]
+name = "Docker Odoo Setup"
+addons_paths = ["${workspaceFolder}/addons"]
+python_path = "python"
+refresh_mode = "onSave"
