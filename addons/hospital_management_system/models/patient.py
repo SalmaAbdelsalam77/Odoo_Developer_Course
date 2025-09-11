@@ -23,6 +23,7 @@ class HospitalPatient(models.Model):
             if rec.age < 1:
                 raise ValidationError("Age is not valid")
             
+    @api.depends('date_of_birth')      
     def _compute_age(self):
         for rec in self:
             today = date.today()

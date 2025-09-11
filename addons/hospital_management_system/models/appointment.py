@@ -26,7 +26,7 @@ class HospitalAppointment(models.Model):
         ('cancel', 'Cancelled')], string= 'Status', default='draft', tracking=True, required=True)
     
     @api.onchange('patient_id')
-    def _onchange_(self):
+    def _onchange_patient_id(self):
         self.ref = self.patient_id.ref 
         
     def action_test(self):

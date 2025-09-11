@@ -5,7 +5,7 @@
         <field name="name">hospital.appointment.list</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <list string="Appointments" create = "1" delete="1" edit = "1">
+            <list string="Appointments" class= "header_custom">
                 <field name="patient_id"/>
                 <field name="ref" />
                 <field name="gender"/>
