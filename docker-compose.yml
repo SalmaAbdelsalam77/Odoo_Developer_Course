@@ -32,9 +32,12 @@ services:
     # the container and any extra odoo modules.
     volumes:
       - ./odoo.conf:/etc/odoo/odoo.conf
+      - odoo-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons
     
       
+    networks:
+      - odoo-net
 
     # Odoo Environment Variables
     # --------
@@ -74,3 +77,43 @@ services:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
       - POSTGRES_DB=postgres  # Leave this set to postgres
+
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - odoo-net
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_SERVER_JSON_FILE=/pgpass.json
+      - PGADMIN_LISTEN_PORT=8096
+    ports:
+      - "8096:8096"
+    networks:
+      - odoo-net
+    depends_on:
+      - db
+
+
+  portainer:
+    image: portainer/portainer-ce:latest
+    ports:
+      - "8090:9000"
+
+
+    networks:
+      - odoo-net
+
+
+
+volumes:
+  db-data:
+  odoo-data:
+
+networks:
+  odoo-net:

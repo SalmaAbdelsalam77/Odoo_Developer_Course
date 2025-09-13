@@ -5,12 +5,23 @@
         <field name="name">hospital.appointment.list</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <list string="Appointments" class= "header_custom">
-                <field name="patient_id"/>
-                <field name="ref" />
-                <field name="gender"/>
-                <field name="appointment_time"/>
-                <field name="booking_date"/>
+            <list string="Appointments" class= "header_custom" 
+                decoration-success= "state =='done'"
+                decoration-info="state == 'draft'"
+                decoration-danger="state == 'cancel'"
+                decoration-muted="state == 'in_consultation'">
+                <field name="patient_id" class="text-center"/>
+                <field name="ref" class="text-center" />
+                <field name="gender" class="text-center"/>
+                <field name="appointment_time" class="text-center"/>
+                <field name="booking_date" class="text-center"/>
+                <field name="state"
+                    decoration-success= "state =='done'"
+                    decoration-info="state == 'draft'"
+                    decoration-danger="state == 'cancel'"
+                    decoration-muted="state == 'in_consultation'"
+                    widget="badge"
+                    class="text-center"/>
             </list>
         </field>
     </record>
