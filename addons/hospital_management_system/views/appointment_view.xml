@@ -38,7 +38,12 @@
             <form string="Appointments">
                 <sheet>
                     <header>
-                        <field name="state" widget="statusbar" nolabel="1" options="{'clickable' :'1'}" statusbar_visible="draft,in_consultation,done" />
+                        <!-- options="{'clickable' :'1'}" -->
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,in_consultation,done"/>
+                        <button name= "action_in_consultation" string= "In Consultation" type="object" invisible ="state not in('draft')"  class="oe_highlight" data-hotkey ="x" />
+                        <button name= "action_draft" string= "Rest To Darft" type="object" invisible ="state not in('cancel')" class="oe_highlight" data-hotkey="r" />
+                        <button name= "action_done" string= "Mark As Done" type="object" invisible ="state not in('in_consultation')"  class="oe_highlight" data-hotkey="m" />
+                        <button name= "action_cancel" string= "Cancel" type="object" invisible ="state not in('draft','in_consultation')"  class="oe_highlight" data-hotkey="h"/>
                     </header>
                     <div>
                         <h2>
@@ -70,8 +75,20 @@
                             <!-- </group>    -->
                         </page>
                         <page name="pharmacy" string="Pharmacy">
-                            <group>
-                            </group>   
+                            <field name="pharmacy_line_ids">
+                                <list editable ="bottom">
+                                    <field name="product_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="quantity"/>
+                                </list>
+                                <form>
+                                    <group>
+                                        <field name="product_id"/>
+                                        <field name="price_unit"/>
+                                        <field name="quantity"/>                          
+                                    </group>
+                                </form>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>

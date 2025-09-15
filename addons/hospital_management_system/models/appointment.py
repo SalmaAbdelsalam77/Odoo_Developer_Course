@@ -13,7 +13,8 @@ class HospitalAppointment(models.Model):
     appointment_time = fields.Datetime(string='Appointment Time', required=True, tracking=True, default=fields.Datetime.now)
     booking_date = fields.Date(string='Booking Date', required=True, tracking=True, default=fields.Date.today)
     prescription = fields.Html(string='Prescription')
-    doctor_id = fields.Many2one('res.users', string='Doctor')
+    doctor_id = fields.Many2one('res.users', string='Doctor', tracking= True)
+    pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines','appointment_id', string= 'Pharmacy Lines')
     priority = fields.Selection([
         ('0', 'Low'), 
         ('1', 'Medium'), 
@@ -39,3 +40,29 @@ class HospitalAppointment(models.Model):
                 'type' : 'rainbow_man'
             }
         }
+        
+    def action_in_consultation(self):
+        for rec in self:
+            rec.state = 'in_consultation'
+        
+    def action_draft(self):
+        for rec in self:
+            rec.state = 'draft'
+        
+    def action_done(self):
+        for rec in self:
+            rec.state = 'done'
+        
+    def action_cancel(self):
+        for rec in self:
+            rec.state = 'cancel'
+            
+            
+class AppointmentPharmacyLines(models.Model):
+    _name = "appointment.pharmacy.lines"
+    _description = "Appointment Pharmacy Lines"
+    
+    product_id = fields.Many2one('product.product', required = True)
+    price_unit = fields.Float(related ='product_id.list_price')
+    quantity = fields.Integer(string = 'Quantity', default = 1)
+    appointment_id = fields.Many2one('hospital.appointment' , string= 'Appointment')
