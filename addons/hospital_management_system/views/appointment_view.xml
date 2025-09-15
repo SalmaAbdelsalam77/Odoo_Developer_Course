@@ -9,19 +9,23 @@
                 decoration-success= "state =='done'"
                 decoration-info="state == 'draft'"
                 decoration-danger="state == 'cancel'"
-                decoration-muted="state == 'in_consultation'">
-                <field name="patient_id" class="text-center"/>
-                <field name="ref" class="text-center" />
-                <field name="gender" class="text-center"/>
-                <field name="appointment_time" class="text-center"/>
-                <field name="booking_date" class="text-center"/>
+                decoration-muted="state == 'in_consultation'" sample="1" multi_edit = "1">
+                <field name="patient_id" class="text-center" align="center"/>
+                <field name="ref" class="text-center" align="center" />
+                <field name="gender" class="text-center" align="center"/>
+                <field name="appointment_time" class="text-center" align="center"/>
+                <field name="booking_date" class="text-center" align="center" optional="hide"/>
+                <field name="doctor_id" widget="many2one_avatar_user" />
+                <field name="ref" optional="hide"/>
+                <field name="gender" optional="hide"/>
+                <field name="activity_ids" widget="list_activity"  class="text-center"/>
                 <field name="state"
                     decoration-success= "state =='done'"
                     decoration-info="state == 'draft'"
                     decoration-danger="state == 'cancel'"
                     decoration-muted="state == 'in_consultation'"
                     widget="badge"
-                    class="text-center"/>
+                    class="text-center" align="center"/>
             </list>
         </field>
     </record>
@@ -43,10 +47,11 @@
                     </div>
                     <group>
                         <group >
-                            <field name="patient_id"/>
+                            <field name="patient_id"  defult_focus='1'/>
                             <field name="ref"/>
                             <field name="gender"/>
                             <field name="booking_date" help= "Date of booking"/>
+                            <field name="doctor_id" widget="many2one_avatar" />
                         </group>
                         <group >
                                 <field name="appointment_time"/>
@@ -60,7 +65,8 @@
                     <notebook>
                         <page name="prescription" string="Prescription"  >
                             <!-- <group> -->
-                                <field name="prescription" placeholder= "Enter your prescription" />
+                                <field name="prescription" placeholder= "Enter your prescription"      widget="html"
+                                    options="{'resizable': true}" />
                             <!-- </group>    -->
                         </page>
                         <page name="pharmacy" string="Pharmacy">

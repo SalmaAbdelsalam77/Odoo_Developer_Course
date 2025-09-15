@@ -13,6 +13,7 @@ class HospitalAppointment(models.Model):
     appointment_time = fields.Datetime(string='Appointment Time', required=True, tracking=True, default=fields.Datetime.now)
     booking_date = fields.Date(string='Booking Date', required=True, tracking=True, default=fields.Date.today)
     prescription = fields.Html(string='Prescription')
+    doctor_id = fields.Many2one('res.users', string='Doctor')
     priority = fields.Selection([
         ('0', 'Low'), 
         ('1', 'Medium'), 
