@@ -15,6 +15,7 @@ class HospitalAppointment(models.Model):
     prescription = fields.Html(string='Prescription')
     doctor_id = fields.Many2one('res.users', string='Doctor', tracking= True)
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines','appointment_id', string= 'Pharmacy Lines')
+    hide_sales_price = fields.Boolean(string="Hide Sales Price", default=False)
     priority = fields.Selection([
         ('0', 'Low'), 
         ('1', 'Medium'), 
@@ -56,6 +57,7 @@ class HospitalAppointment(models.Model):
     def action_cancel(self):
         for rec in self:
             rec.state = 'cancel'
+            
             
             
 class AppointmentPharmacyLines(models.Model):

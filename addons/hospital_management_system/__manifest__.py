@@ -14,6 +14,7 @@
     'views/patient_view.xml',
     'views/femail_patient_view.xml',
     'views/appointment_view.xml',
+    'views/patient_tag_view.xml',
     ],
     'assets' : {
         'web.assets_backend' : ['hospital_management_system/static/src/css/appointment.css']

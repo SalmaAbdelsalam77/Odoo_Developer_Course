@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List View -->
+    <record id="view_patient_tag_list" model="ir.ui.view">
+        <field name="name">patient.tag.list</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="active"/>
+                <field name="color" widget="color_picker" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_patient_tag_form" model="ir.ui.view">
+        <field name="name">patient.tag.form</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="color" widget="color_picker" />
+                            <field name="color_2" widget="color" groups ="base.group_no_one" />
+                            <field name="active" widget="boolean_toggle" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- Search View -->
+    <record id="view_patient_tag_search" model="ir.ui.view">
+        <field name="name">patient.tag.search</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+            <search>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_patient_tag" model="ir.actions.act_window">
+        <field name="name">Patient Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.tag</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_filter_male' : 1, 'search_default_group_by_gender':1}</field>
+        <field name="help" type= 'html'>
+            <p class="oe_view_nocontent_create">
+                Click to create a new patient record.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+    id="menu_patient_tag"
+    name="Tags"
+    action ="action_patient_tag"
+    parent="menu_configiuration"
+    sequence="10"/>
+</odoo>

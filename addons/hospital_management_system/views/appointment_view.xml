@@ -59,12 +59,13 @@
                             <field name="doctor_id" widget="many2one_avatar" />
                         </group>
                         <group >
+                                <field name="hide_sales_price" widget="boolean_toggle" groups="base.group_no_one"/>
                                 <field name="appointment_time"/>
                                     <button name="action_test" string="Object Button" type="object" class="oe_highlight" 
-                                    confirm="Are You Sure That You Want To Excute Python Code!" help="A massage will be printed in the log"/>
+                                    confirm="Are You Sure That You Want To Excute Python Code!" help="A massage will be printed in the log" groups="base.group_no_one"/>
                                     <button name="%(hospital_management_system.action_hospital_patient)d" string="Action Button" 
                                     type="action" class="oe_highlight" confirm="Are You Sure That You Want To Click On The Button!" 
-                                    help="On clicking this you will be directed to the patient records"/>
+                                    help="On clicking this you will be directed to the patient records" groups="base.group_no_one"/>
                         </group>
                     </group>
                     <notebook>
@@ -78,7 +79,7 @@
                             <field name="pharmacy_line_ids">
                                 <list editable ="bottom">
                                     <field name="product_id"/>
-                                    <field name="price_unit"/>
+                                    <field name="price_unit" invisible="parent.hide_sales_price"/>
                                     <field name="quantity"/>
                                 </list>
                                 <form>
@@ -106,6 +107,24 @@
             </search>
         </field>
     </record>
+    <!-- <record id="view_hospital_appointment_form_inherit_price" model="ir.ui.view">
+        <field name="name">hospital.appointment.form.inherit.price</field>
+        <field name="model">hospital.appointment</field>
+        <field name="inherit_id" ref="hospital_management_system.view_hospital_appointment_form"/>
+        <field name="arch" type="xml"> -->
+
+            <!-- إخفاء الـ field price_unit في الـ form view بتاع pharmacy_line_ids -->
+            <!-- <xpath expr="//field[@name='pharmacy_line_ids']/form//field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">{'parent.hide_sales_price': True}</attribute>
+            </xpath> -->
+
+            <!-- إخفاء العمود price_unit في الـ tree view بتاع pharmacy_line_ids -->
+            <!-- <xpath expr="//field[@name='pharmacy_line_ids']/list/field[@name='price_unit']" position="attributes">
+                <attribute name="invisible">{'parent.hide_sales_price': True}</attribute>
+            </xpath>
+
+        </field>
+    </record> -->
 
     <!-- Action -->
     <record id="action_hospital_appointment" model="ir.actions.act_window">
