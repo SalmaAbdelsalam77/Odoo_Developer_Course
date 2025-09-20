@@ -8,13 +8,15 @@
             <list string="Appointments" class= "header_custom" 
                 decoration-success= "state =='done'"
                 decoration-info="state == 'draft'"
-                decoration-danger="state == 'cancel'"
-                decoration-muted="state == 'in_consultation'" sample="1" multi_edit = "1">
+                decoration-danger="state == 'cancel' or (is_late)"
+                decoration-muted="state == 'in_consultation'"
+                sample="1" multi_edit = "1">
                 <field name="patient_id" class="text-center" align="center"/>
                 <field name="ref" class="text-center" align="center" />
                 <field name="gender" class="text-center" align="center"/>
                 <field name="appointment_time" class="text-center" align="center"/>
                 <field name="booking_date" class="text-center" align="center" optional="hide"/>
+                <field name="is_late" invisible= '1'/>
                 <field name="doctor_id" widget="many2one_avatar_user" />
                 <field name="ref" optional="hide"/>
                 <field name="gender" optional="hide"/>
@@ -55,7 +57,8 @@
                             <field name="patient_id"  defult_focus='1'/>
                             <field name="ref"/>
                             <field name="gender"/>
-                            <field name="booking_date" help= "Date of booking"/>
+                            <field name="booking_date" help="Date of booking"/>
+                            <field name="is_late" invisible='1'/>
                             <field name="doctor_id" widget="many2one_avatar" />
                         </group>
                         <group >
@@ -71,8 +74,9 @@
                     <notebook>
                         <page name="prescription" string="Prescription"  >
                             <!-- <group> -->
-                                <field name="prescription" placeholder= "Enter your prescription"      widget="html"
-                                    options="{'resizable': true}" />
+                                <!-- <field name="" placeholder= "Enter your prescription"  widget="html"
+                                    options="{'resizable':true,'codeview':true}" /> -->
+                                    <field name="prescription" widget="html_legacy" options="{'codeview': true,'resizable': true}"  style="border: none !important;"/>
                             <!-- </group>    -->
                         </page>
                         <page name="pharmacy" string="Pharmacy">
@@ -138,6 +142,28 @@
                 Click to create a new appointment.
             </p>
         </field>
+    </record>
+
+    <record id="appointmet_cancel_server_action" model="ir.actions.server">
+        <field name="name">Cancel</field>
+        <field name="model_id" ref="model_hospital_appointment"/>           
+        <field name="binding_model_id" ref="model_hospital_appointment"/>   
+        <field name="state">code</field>
+        <field name="code">
+            action = records.action_cancel()
+        </field>        
+    </record>
+
+    <record id="check_appointment_time_cron" model="ir.cron">
+        <field name="name">Appointment: Check appointment time</field>
+        <field name="model_id" ref="model_hospital_appointment"/>           
+        <field name="state">code</field>
+        <field name="code">
+            model._check_appointment_time()
+        </field>        
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
     </record>
 
     <menuitem

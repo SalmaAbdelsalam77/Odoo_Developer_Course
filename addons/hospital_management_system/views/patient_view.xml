@@ -38,6 +38,7 @@
                         <group string="Other">
                             <field name="ref"/>
                             <field name="active" invisible="1"/>
+                            <field name="tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             <field name="appointment_id"/>
                         </group>
                     </group>

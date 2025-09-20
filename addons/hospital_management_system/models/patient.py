@@ -14,6 +14,7 @@ class HospitalPatient(models.Model):
     active = fields.Boolean(string='Active', default=True)
     appointment_id = fields.Many2one("hospital.appointment", string = "Appointment")
     image = fields.Image(string= "image")
+    tag_id = fields.Many2many('patient.tag', string='Tags')
 
     _sql_constraints = [
         ('ref_uniq', 'unique(ref)', 'Reference must be unique')

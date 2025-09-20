@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from datetime import datetime
 from odoo.exceptions import ValidationError
 
 class HospitalAppointment(models.Model):
@@ -11,6 +12,7 @@ class HospitalAppointment(models.Model):
     ref = fields.Char(string='Reference', required=True)
     gender = fields.Selection(related='patient_id.gender')
     appointment_time = fields.Datetime(string='Appointment Time', required=True, tracking=True, default=fields.Datetime.now)
+    is_late = fields.Boolean(tracking=True, compute= '_check_appointment_time')
     booking_date = fields.Date(string='Booking Date', required=True, tracking=True, default=fields.Date.today)
     prescription = fields.Html(string='Prescription')
     doctor_id = fields.Many2one('res.users', string='Doctor', tracking= True)
@@ -57,6 +59,15 @@ class HospitalAppointment(models.Model):
     def action_cancel(self):
         for rec in self:
             rec.state = 'cancel'
+                
+    def _check_appointment_time(self):
+            now = fields.Datetime.now()
+            for rec in self.search([]):
+                if rec.appointment_time < now:
+                    rec.is_late = True
+                else:
+                    rec.is_late = False
+
             
             
             
