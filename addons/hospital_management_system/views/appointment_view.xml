@@ -53,17 +53,17 @@
                         </h2>
                     </div>
                     <group>
-                        <group >
+                        <group string="Patient Information" >
                             <field name="patient_id"  defult_focus='1'/>
                             <field name="ref"/>
                             <field name="gender"/>
-                            <field name="booking_date" help="Date of booking"/>
                             <field name="is_late" invisible='1'/>
-                            <field name="doctor_id" widget="many2one_avatar" />
                         </group>
-                        <group >
-                                <field name="hide_sales_price" widget="boolean_toggle" groups="base.group_no_one"/>
-                                <field name="appointment_time"/>
+                        <group string="Appointment Information">
+                            <field name="hide_sales_price" widget="boolean_toggle" groups="base.group_no_one"/>
+                            <field name="appointment_time"/>
+                            <field name="booking_date" help="Date of booking"/>
+                            <field name="doctor_id" widget="many2one_avatar" />
                                     <button name="action_test" string="Object Button" type="object" class="oe_highlight" 
                                     confirm="Are You Sure That You Want To Excute Python Code!" help="A massage will be printed in the log" groups="base.group_no_one"/>
                                     <button name="%(hospital_management_system.action_hospital_patient)d" string="Action Button" 
@@ -72,7 +72,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page name="prescription" string="Prescription"  >
+                        <page name="prescription" string="Prescription">
                             <!-- <group> -->
                                 <!-- <field name="" placeholder= "Enter your prescription"  widget="html"
                                     options="{'resizable':true,'codeview':true}" /> -->

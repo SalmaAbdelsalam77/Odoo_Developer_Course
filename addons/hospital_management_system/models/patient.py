@@ -6,7 +6,7 @@ class HospitalPatient(models.Model):
     _name = 'hospital.patient'
     _description = 'Hospital Patient'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    name = fields.Char(string='Name' , required=True, defult='New', tracking=True)
+    name = fields.Char(string='Name' , required=True, default='New', tracking=True)
     ref = fields.Char(string='Reference', required=True, help="Reference of the patient")
     date_of_birth = fields.Date(string='Date of Birth')
     age = fields.Integer(string='Age', tracking=True, compute='_compute_age')
