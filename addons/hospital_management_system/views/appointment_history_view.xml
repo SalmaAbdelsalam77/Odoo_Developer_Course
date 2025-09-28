@@ -1,0 +1,50 @@
+<odoo>
+    <!-- List View -->
+    <record id="view_hospital_appointment_history_list" model="ir.ui.view">
+        <field name="name">hospital.appointment.history.list</field>
+        <field name="model">hospital.appointment.history</field>
+        <field name="arch" type="xml">
+            <list create="0" edit= "0" delete= "0">
+                <field name="user_id" />
+                <field name="appointment_id" />
+                <field name="old_state" />
+                <field name="new_state" />
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_hospital_appointment_history_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.history.form</field>
+        <field name="model">hospital.appointment.history</field>
+        <field name="arch" type="xml">
+            <form string="Appointments History" create="0" edit= "0" delete= "0">
+                <sheet>
+                    <group>
+                        <group >
+                            <field name="user_id" />
+                            <field name="appointment_id" />
+                        </group>
+                        <group>
+                            <field name="old_state" />
+                            <field name="new_state" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hospital_appointment_history" model="ir.actions.act_window">
+        <field name="name">Appointment History</field>
+        <field name="res_model">hospital.appointment.history</field>
+    </record>
+
+    <menuitem
+    id="menu_appointment_history"
+    name="History"
+    action ="action_hospital_appointment_history"
+    parent="menu_appointment_master"
+    sequence="10"/>
+</odoo>

@@ -16,7 +16,6 @@
                 <field name="gender" class="text-center" align="center"/>
                 <field name="appointment_time" class="text-center" align="center"/>
                 <field name="booking_date" class="text-center" align="center" optional="hide"/>
-                <field name="is_late" invisible= '1'/>
                 <field name="doctor_id" widget="many2one_avatar_user" />
                 <field name="ref" optional="hide"/>
                 <field name="gender" optional="hide"/>
@@ -49,21 +48,21 @@
                     </header>
                     <div>
                         <h2>
-                            <field name="priority" widget= "priority" />
+                            <field name="priority" widget= "priority" readonly="state == 'done'" />
                         </h2>
                     </div>
                     <group>
                         <group string="Patient Information" >
-                            <field name="patient_id"  defult_focus='1'/>
-                            <field name="ref"/>
-                            <field name="gender"/>
-                            <field name="is_late" invisible='1'/>
+                            <field name="patient_id"  defult_focus='1' readonly="state == 'done'"/>
+                            <field name="ref" readonly="state == 'done'"/>
+                            <field name="gender" readonly="state == 'done'"/>
+                            <field name="is_late" invisible='1' readonly="state == 'done'"/>
                         </group>
                         <group string="Appointment Information">
-                            <field name="hide_sales_price" widget="boolean_toggle" groups="base.group_no_one"/>
-                            <field name="appointment_time"/>
-                            <field name="booking_date" help="Date of booking"/>
-                            <field name="doctor_id" widget="many2one_avatar" />
+                            <field name="hide_sales_price" widget="boolean_toggle" groups="base.group_no_one" readonly="state == 'done'"/>
+                            <field name="appointment_time" readonly="state == 'done'"/>
+                            <field name="booking_date" help="Date of booking" readonly="state == 'done'"/>
+                            <field name="doctor_id" widget="many2one_avatar" readonly="state == 'done'"/>
                                     <button name="action_test" string="Object Button" type="object" class="oe_highlight" 
                                     confirm="Are You Sure That You Want To Excute Python Code!" help="A massage will be printed in the log" groups="base.group_no_one"/>
                                     <button name="%(hospital_management_system.action_hospital_patient)d" string="Action Button" 
@@ -76,11 +75,11 @@
                             <!-- <group> -->
                                 <!-- <field name="" placeholder= "Enter your prescription"  widget="html"
                                     options="{'resizable':true,'codeview':true}" /> -->
-                                    <field name="prescription" widget="html_legacy" options="{'codeview': true,'resizable': true}"  style="border: none !important;"/>
+                                    <field name="prescription" widget="html_legacy" options="{'codeview': true,'resizable': true}"  style="border: none !important;" readonly="state == 'done'"/>
                             <!-- </group>    -->
                         </page>
                         <page name="pharmacy" string="Pharmacy">
-                            <field name="pharmacy_line_ids">
+                            <field name="pharmacy_line_ids" readonly="state == 'done'">
                                 <list editable ="bottom">
                                     <field name="product_id"/>
                                     <field name="price_unit" invisible="parent.hide_sales_price"/>

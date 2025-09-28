@@ -46,18 +46,22 @@ class HospitalAppointment(models.Model):
         
     def action_in_consultation(self):
         for rec in self:
+            rec.create_history_record(rec.state, 'in_consultation')
             rec.state = 'in_consultation'
         
     def action_draft(self):
         for rec in self:
+            rec.create_history_record(rec.state, 'draft')
             rec.state = 'draft'
         
     def action_done(self):
         for rec in self:
+            rec.create_history_record(rec.state, 'done')
             rec.state = 'done'
         
     def action_cancel(self):
         for rec in self:
+            rec.create_history_record(rec.state, 'cancel')
             rec.state = 'cancel'
                 
     def _check_appointment_time(self):
@@ -67,10 +71,18 @@ class HospitalAppointment(models.Model):
                     rec.is_late = True
                 else:
                     rec.is_late = False
-
-            
-            
-            
+                    
+    def create_history_record(self, old_state, new_state):
+        for rec in self:
+            rec.env['hospital.appointment.history'].create(
+                {
+                    'patient_id' : rec.patient_id.id,
+                    'appointment_id': rec.id,
+                    'old_state' : old_state,
+                    'new_state' : new_state,
+                }
+            )
+    
 class AppointmentPharmacyLines(models.Model):
     _name = "appointment.pharmacy.lines"
     _description = "Appointment Pharmacy Lines"

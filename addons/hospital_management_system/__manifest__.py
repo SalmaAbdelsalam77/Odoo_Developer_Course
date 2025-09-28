@@ -16,6 +16,7 @@
     'views/femail_patient_view.xml',
     'views/appointment_view.xml',
     'views/patient_tag_view.xml',
+    'views/appointment_history_view.xml',
     'reports/appointment_report.xml',
     ],
     'assets' : {
