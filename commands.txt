@@ -1,0 +1,14 @@
+// Set up logging
+import logging
+logger = logging.getLogger(name_)
+_logger.info()
+
+// Show the last 100 log lines and follow updates in real-time
+terminal --> docker logs -f (odoo-container-name) --tail 100
+
+
+// Restart the Odoo server
+docker restart (odoo-container-name)
+
+// Upgrade a specific addon
+docker exec -it (odoo container name) odoo -u (addon name) -d (database name) --stop-after-init

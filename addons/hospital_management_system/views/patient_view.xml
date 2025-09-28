@@ -24,10 +24,14 @@
                 <sheet>
                     <field name="image" widget="image" class= "oe_avatar"/>
                     <div class="oe_title">
-                        <label for="name"/>
+                        <label for="ref"/>
                         <h1>
-                            <field name="name" placeholder="Patient Name"/>
+                            <field name="ref" placeholder="Patient Refrence"/>
                         </h1>
+                        <label for="name"/>
+                        <h3>
+                            <field name="name" placeholder="Patient Name"/>
+                        </h3>
                     </div>
                     <group>
                         <group string="Patient Information">
@@ -36,7 +40,6 @@
                             <field name="gender"/>
                         </group>
                         <group string="Other">
-                            <field name="ref"/>
                             <field name="active" invisible="1"/>
                             <field name="tag_id" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             <field name="appointment_id"/>
