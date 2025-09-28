@@ -5,7 +5,7 @@
         <field name="model">hospital.appointment.history</field>
         <field name="arch" type="xml">
             <list create="0" edit= "0" delete= "0">
-                <field name="user_id" />
+                <field name="patient_id" />
                 <field name="appointment_id" />
                 <field name="old_state" />
                 <field name="new_state" />
@@ -22,7 +22,7 @@
                 <sheet>
                     <group>
                         <group >
-                            <field name="user_id" />
+                            <field name="patient_id" />
                             <field name="appointment_id" />
                         </group>
                         <group>
